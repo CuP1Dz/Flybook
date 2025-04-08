@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Flybook</string>
+    <string name="greetings">Hello my friend!</string>
+</resources>
