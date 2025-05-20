@@ -5,6 +5,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import com.example.bookingcom.data.local.models.Aviacompany
+import com.example.bookingcom.data.local.models.Flights
 import com.example.bookingcom.data.local.models.User
 
 
@@ -30,5 +31,8 @@ interface FlybookDao {
     @Delete
     suspend fun delete_avia(aviacompany: Aviacompany)
 
+    // -------------------------------------
 
+    @Insert
+    suspend fun insert_ticket(flights: Flights)
 }

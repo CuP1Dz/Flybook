@@ -10,6 +10,7 @@ import com.example.flybook.presentation.screens.MainScreen
 import com.example.flybook.presentation.screens.NotificationScreen
 import com.example.flybook.presentation.screens.PaymentScreen
 import com.example.flybook.presentation.screens.ProfileScreen
+import com.example.flybook.presentation.screens.SearchResultsScreen
 
 @Composable
 fun NavigationFlybook(){
@@ -41,7 +42,10 @@ fun NavigationFlybook(){
             navBackProfileEntry ->
             ProfileScreen(navController/*,navBackProfileEntry.arguments?.getString("id")*/)
         }
-
+        composable(route = "search_screen/{${"from"}}/{${"to"}}"){
+            aaa -> SearchResultsScreen(navController, from = aaa.arguments?.getString("from"),
+            to = aaa.arguments?.getString("to"))
+        }
     }
 }
 

@@ -8,4 +8,5 @@ sealed class Screen(
     object Profile: Screen("profile")
     object Hotel:Screen("hotel")
     object Notification:Screen("notification")
+    object SearchScreen:Screen("search_screen")
 }

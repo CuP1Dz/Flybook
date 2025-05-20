@@ -152,19 +152,6 @@ fun ProfileScreen(navController: NavController, /*idProfile:String?*/) {
 
             Spacer(modifier = Modifier.height(24.dp))
 
-            SettingsSection(title = "Advises", items = listOf(
-                "My Tickets" to Icons.Default.AccountCircle,
-                "Support" to Icons.Default.AccountCircle
-            ))
-
-            Spacer(modifier = Modifier.height(24.dp))
-
-            SettingsSection(title = "Aviacompanies", items = listOf(
-                "Rate us" to Icons.Default.AccountCircle
-            ))
-
-            Spacer(modifier = Modifier.height(24.dp))
-
             Text(
                 text = "2.20.21",
                 color = Color.Gray,

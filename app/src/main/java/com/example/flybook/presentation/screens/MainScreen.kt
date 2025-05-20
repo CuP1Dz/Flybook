@@ -12,16 +12,14 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -30,27 +28,26 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Shadow
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.flybook.R
-import com.example.flybook.ui.theme.SuperLightGray
+import com.example.flybook.ui.theme.Orangebtn
 import com.example.flybook.viewmodel.BottomNavigationBar
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainScreen(navController: NavController){
-    var To by remember{ mutableStateOf("") }
-    var Where by remember { mutableStateOf("") }
+    var to by remember{ mutableStateOf("") }
+    var from by remember { mutableStateOf("") }
 
+    var errormessage by remember { mutableStateOf("") }
     Scaffold(
         modifier = Modifier
             .background(Color.LightGray),
@@ -100,8 +97,8 @@ fun MainScreen(navController: NavController){
                         bottomEnd = 0.dp,
                         bottomStart = 0.dp,
                     ),
-                    value = To,
-                    onValueChange = { To = it },
+                    value = to,
+                    onValueChange = { to = it },
                     singleLine = true,
                     label = { Text("To") },
                     modifier = Modifier
@@ -115,8 +112,8 @@ fun MainScreen(navController: NavController){
                         bottomEnd = 10.dp,
                         bottomStart = 10.dp,
                     ),
-                    value = Where,
-                    onValueChange = { Where = it },
+                    value = from,
+                    onValueChange = { from = it },
                     singleLine = true,
                     label = { Text("Where") },
                     modifier = Modifier.fillMaxWidth(),
@@ -126,16 +123,28 @@ fun MainScreen(navController: NavController){
                         disabledIndicatorColor = Color.Transparent
                     )
                 )
+                Spacer(modifier = Modifier.height(20.dp))
                 Button(
                     onClick = {
                         // Переход на экран результатов поиска
-                        navController.navigate("search_results/${To}/${Where}")
+                        if (to.isEmpty()||from.isEmpty()){
+                            errormessage = "заполните поля"
+                        }
+                        else{
+                            navController.navigate("search_screen/${from}/${to}")
+                        }
                     },
-                    modifier = Modifier.fillMaxWidth().padding(16.dp)
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    colors = ButtonDefaults.buttonColors(
+                        contentColor = Color.White,
+                        containerColor = Orangebtn,
+                    ),
+                    shape = RoundedCornerShape(5.dp),
                 ) {
                     Text(text = "Поиск")
                 }
-
+                Text(text = errormessage, color = Color.Red)
             }
         }
 
