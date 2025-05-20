@@ -18,6 +18,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -69,33 +70,33 @@ fun SearchResultsScreen(navController: NavController, from: String?, to: String?
     val bookings = listOf(
         BookingData(
             imageUrl = "https://storage.googleapis.com/a1aa/image/318e13fc-4089-4829-0c7c-a72575b76a1e.jpg",
-            title = "Ghost Game",
+            title = "Canada",
             subtitle = "Super Best Ghost",
-            pricePerNight = "$59 / night",
+            pricePerNight = "\$59 / night",
             rating = 5f,
             reviewsCount = 84,
-            totalPrice = "356 $",
+            totalPrice = "356 \$",
             totalDays = 6
         ),
         BookingData(
             imageUrl = "https://storage.googleapis.com/a1aa/image/774a976b-437f-4cfc-1f40-de651dcd8e44.jpg",
-            title = "Paroma tiara",
+            title = "Moscow",
             subtitle = "Lacola de San",
-            pricePerNight = "$103 / night",
-            rating = 5f,
+            pricePerNight = "\$103 / night",
+            rating = 4.5f,
             reviewsCount = 110,
-            totalPrice = "1236 $",
+            totalPrice = "1236 \$",
             totalDays = 12
         ),
         BookingData(
             imageUrl = "https://storage.googleapis.com/a1aa/image/98ac44da-573f-4207-29ac-163bafc2c096.jpg",
             title = "",
-            subtitle = "",
-            pricePerNight = "",
-            rating = 0f,
-            reviewsCount = 0,
-            totalPrice = "",
-            totalDays = 0
+            subtitle = "Mexico",
+            pricePerNight = "\$123 / night",
+            rating = 5f,
+            reviewsCount = 120,
+            totalPrice = "123 \$",
+            totalDays = 10
         )
     )
     Scaffold(
@@ -163,16 +164,17 @@ fun SearchResultsScreen(navController: NavController, from: String?, to: String?
                     verticalArrangement = Arrangement.spacedBy(16.dp),
                     contentPadding = PaddingValues(horizontal = 16.dp)
                 ) {
-                    items(4) { booking -> // Используем bookings для итерации
-                        BookingCard(
-                            imageUrl = "https://storage.googleapis.com/a1aa/image/318e13fc-4089-4829-0c7c-a72575b76a1e.jpg",
-                            title = "Ghost Game",
-                            subtitle = "Super Best Ghost",
-                            pricePerNight = "$59 / night",
-                            rating = 5f,
-                            reviewsCount = 84,
-                            totalPrice = "356 $",
-                            totalDays = 6
+                    items(bookings) { booking -> // Используем bookings для итерации
+                        if (booking.title.contains(to.toString(),true))
+                            BookingCard(
+                            imageUrl = booking.imageUrl,
+                            title = booking.title,
+                            subtitle = booking.subtitle,
+                            pricePerNight = booking.pricePerNight,
+                            rating = booking.rating,
+                            reviewsCount = booking.reviewsCount,
+                            totalPrice = booking.totalPrice,
+                            totalDays = booking.totalDays
                         )
                     }
                 }
@@ -317,91 +319,91 @@ fun BookingCard(
 }
 
 
-@Composable
-fun BookingScreen(
-    onBackClick: () -> Unit = {}
-) {
-    val bookings = listOf(
-        BookingData(
-            imageUrl = "https://storage.googleapis.com/a1aa/image/318e13fc-4089-4829-0c7c-a72575b76a1e.jpg",
-            title = "Ghost Game",
-            subtitle = "Super Best Ghost",
-            pricePerNight = "$59 / night",
-            rating = 4.5f,
-            reviewsCount = 84,
-            totalPrice = "356 $",
-            totalDays = 6
-        ),
-        BookingData(
-            imageUrl = "https://storage.googleapis.com/a1aa/image/774a976b-437f-4cfc-1f40-de651dcd8e44.jpg",
-            title = "Paroma tiara",
-            subtitle = "Lacola de San",
-            pricePerNight = "$103 / night",
-            rating = 4f,
-            reviewsCount = 110,
-            totalPrice = "1236 $",
-            totalDays = 12
-        ),
-        BookingData(
-            imageUrl = "https://storage.googleapis.com/a1aa/image/98ac44da-573f-4207-29ac-163bafc2c096.jpg",
-            title = "",
-            subtitle = "",
-            pricePerNight = "",
-            rating = 0f,
-            reviewsCount = 0,
-            totalPrice = "",
-            totalDays = 0
-        )
-    )
-
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color(0xFFF0F0F0))
-    ) {
-        LazyColumn(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(bottom = 72.dp, top = 56.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp),
-            contentPadding = PaddingValues(horizontal = 16.dp)
-        ) {
-//            items(bookings) { booking ->
-//                BookingCard(
-//                    imageUrl = booking.imageUrl,
-//                    title = booking.title,
-//                    subtitle = booking.subtitle,
-//                    pricePerNight = booking.pricePerNight,
-//                    rating = booking.rating,
-//                    reviewsCount = booking.reviewsCount,
-//                    totalPrice = booking.totalPrice,
-//                    totalDays = booking.totalDays
+//@Composable
+//fun BookingScreen(
+//    onBackClick: () -> Unit = {}
+//) {
+//    val bookings = listOf(
+//        BookingData(
+//            imageUrl = "https://storage.googleapis.com/a1aa/image/318e13fc-4089-4829-0c7c-a72575b76a1e.jpg",
+//            title = "Ghost Game",
+//            subtitle = "Super Best Ghost",
+//            pricePerNight = "$59 / night",
+//            rating = 4.5f,
+//            reviewsCount = 84,
+//            totalPrice = "356 $",
+//            totalDays = 6
+//        ),
+//        BookingData(
+//            imageUrl = "https://storage.googleapis.com/a1aa/image/774a976b-437f-4cfc-1f40-de651dcd8e44.jpg",
+//            title = "Paroma tiara",
+//            subtitle = "Lacola de San",
+//            pricePerNight = "$103 / night",
+//            rating = 4f,
+//            reviewsCount = 110,
+//            totalPrice = "1236 $",
+//            totalDays = 12
+//        ),
+//        BookingData(
+//            imageUrl = "https://storage.googleapis.com/a1aa/image/98ac44da-573f-4207-29ac-163bafc2c096.jpg",
+//            title = "",
+//            subtitle = "",
+//            pricePerNight = "",
+//            rating = 0f,
+//            reviewsCount = 0,
+//            totalPrice = "",
+//            totalDays = 0
+//        )
+//    )
+//
+//    Box(
+//        modifier = Modifier
+//            .fillMaxSize()
+//            .background(Color(0xFFF0F0F0))
+//    ) {
+//        LazyColumn(
+//            modifier = Modifier
+//                .fillMaxSize()
+//                .padding(bottom = 72.dp, top = 56.dp),
+//            verticalArrangement = Arrangement.spacedBy(16.dp),
+//            contentPadding = PaddingValues(horizontal = 16.dp)
+//        ) {
+////            items(bookings) { booking ->
+////                BookingCard(
+////                    imageUrl = booking.imageUrl,
+////                    title = booking.title,
+////                    subtitle = booking.subtitle,
+////                    pricePerNight = booking.pricePerNight,
+////                    rating = booking.rating,
+////                    reviewsCount = booking.reviewsCount,
+////                    totalPrice = booking.totalPrice,
+////                    totalDays = booking.totalDays
+////                )
+////            }
+//        }
+//        Box(
+//            modifier = Modifier
+//                .align(Alignment.TopStart)
+//                .padding(start = 16.dp, top = 12.dp)
+//        ) {
+//            IconButton(
+//                onClick = onBackClick,
+//                modifier = Modifier.size(32.dp)
+//            ) {
+//                Icon(
+//                    imageVector = Icons.Filled.ArrowBack,
+//                    contentDescription = "Back",
+//                    tint = Color.Black
 //                )
 //            }
-        }
-        Box(
-            modifier = Modifier
-                .align(Alignment.TopStart)
-                .padding(start = 16.dp, top = 12.dp)
-        ) {
-            IconButton(
-                onClick = onBackClick,
-                modifier = Modifier.size(32.dp)
-            ) {
-                Icon(
-                    imageVector = Icons.Filled.ArrowBack,
-                    contentDescription = "Back",
-                    tint = Color.Black
-                )
-            }
-        }
-        Box(
-            modifier = Modifier
-                .align(Alignment.BottomCenter)
-        ) {
-        }
-    }
-}
+//        }
+//        Box(
+//            modifier = Modifier
+//                .align(Alignment.BottomCenter)
+//        ) {
+//        }
+//    }
+//}
 
 @Preview
 @Composable
