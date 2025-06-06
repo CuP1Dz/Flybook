@@ -29,11 +29,17 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -52,11 +58,17 @@ import com.example.flybook.ui.theme.LightBlue
 import com.example.flybook.ui.theme.Orangebtn
 import com.example.flybook.ui.theme.SuperLightGray
 import com.example.flybook.ui.theme.btnBlue
+import com.example.flybook.viewmodel.AuthViewModel
 import com.example.flybook.viewmodel.BottomNavigationBar
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ProfileScreen(navController: NavController, /*idProfile:String?*/) {
+fun ProfileScreen(navController: NavController, authViewModel: AuthViewModel) {
+    var email by remember { mutableStateOf("") }
+
+    var password by remember { mutableStateOf("") }
+
+
     Scaffold(
         modifier = Modifier
             .background(Color.LightGray),
@@ -85,142 +97,113 @@ fun ProfileScreen(navController: NavController, /*idProfile:String?*/) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(innerPadding)
-                .padding(20.dp)
+                .padding(innerPadding),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            Text(text = "Страница входа", fontSize = 32.sp)
+
             Spacer(modifier = Modifier.height(16.dp))
 
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Image(
-                    painter = painterResource(id = R.drawable.ic_launcher_foreground),
-                    contentDescription = "Profile picture of Name Surname",
-                    modifier = Modifier
-                        .size(48.dp)
-                        .clip(CircleShape)
-                )
-                Spacer(modifier = Modifier.width(16.dp))
-                Column {
-                    Text(text = "Name Surname", fontWeight = FontWeight.Bold)
-                    Text(text = "Add your contact data", color = Color.Gray)
+            OutlinedTextField(
+                value = email,
+                onValueChange = {
+                    email = it
+                },
+                label = {
+                    Text(text = "Эл.почта")
                 }
-                Spacer(modifier = Modifier.weight(1f))
-                Icon(imageVector = Icons.Default.AccountCircle, contentDescription = null, tint = Color.Gray)
-            }
-
-            Spacer(modifier = Modifier.height(24.dp))
-
-            Text(text = "Documentation", fontSize = 18.sp, fontWeight = FontWeight.Bold)
-
-            Spacer(modifier = Modifier.height(16.dp))
-
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Image(
-                    painter = painterResource(id = R.drawable.ic_launcher_foreground),
-                    contentDescription = "Passport placeholder image",
-                    modifier = Modifier.size(48.dp)
-                )
-                Spacer(modifier = Modifier.width(16.dp))
-                Column {
-                    Text(text = "Name Surname", fontWeight = FontWeight.Bold)
-                    Text(text = "+ Add your passport information", color = Color.Gray)
-                }
-            }
-
-            Spacer(modifier = Modifier.height(16.dp))
-
-            Button(
-                onClick = { /*TODO*/ },
-                modifier = Modifier.fillMaxWidth(),
-                colors = ButtonDefaults.buttonColors(
-                    contentColor = Color.White,
-                    containerColor = btnBlue,
-                ),
-            ) {
-                Text(text = "ALL DOCUMENTS", color = Color.White)
-            }
-
-            Spacer(modifier = Modifier.height(24.dp))
-
-            SettingsSection(title = "Settings", items = listOf(
-                "Manage my account" to Icons.Default.AccountCircle,
-                "Privacy and safety" to Icons.Default.AccountCircle,
-                "Registration" to Icons.Default.AccountCircle,
-                "Balance" to Icons.Default.AccountCircle,
-                "Links" to Icons.Default.AccountCircle,
-                "Codes" to Icons.Default.AccountCircle
-            ))
-
-            Spacer(modifier = Modifier.height(24.dp))
-
-            Text(
-                text = "2.20.21",
-                color = Color.Gray,
-                modifier = Modifier.align(Alignment.CenterHorizontally)
             )
-        }
-    }
-}
-
-@Composable
-fun SettingsSection(title: String, items: List<Pair<String, ImageVector>>) {
-    Card(
-
-        modifier = Modifier
-            .fillMaxWidth(),
-        shape = RoundedCornerShape(8.dp),
-    ) {
-        Column(modifier = Modifier.padding(16.dp)) {
-            Text(text = title, fontSize = 18.sp, fontWeight = FontWeight.Bold)
             Spacer(modifier = Modifier.height(16.dp))
-            items.forEach { item ->
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(vertical = 8.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Icon(imageVector = item.second, contentDescription = null, tint = Color.Gray)
-                    Spacer(modifier = Modifier.width(16.dp))
-                    Text(text = item.first)
-                    Spacer(modifier = Modifier.weight(1f))
-                    Icon(imageVector = Icons.Default.AccountCircle, contentDescription = null, tint = Color.Gray)
+
+            OutlinedTextField(
+                value = password,
+                onValueChange = {
+                    password = it
+                },
+                label = {
+                    Text(text = "Пароль")
                 }
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+
+            Button(onClick = {
+
+            }) {
+
+            }
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            TextButton(onClick = {
+                navController.navigate("signup")
+            }) {
+                Text(text = "Нет аккаунта, зарегистрировать")
             }
         }
     }
 }
 
-@Composable
-fun ProfileHeader() {
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp),
-        shape = RoundedCornerShape(16.dp)
-    ) {
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp)
-        ) {
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                Image(
-                    painter = painterResource(id = R.drawable.notification ),
-                    contentDescription = "Profile Image",
-                    modifier = Modifier.size(64.dp)
-                )
-                Spacer(modifier = Modifier.width(16.dp))
-                Column {
-                    Text("User  Name", fontWeight = FontWeight.Bold, fontSize = 20.sp)
-                    Text("user@example.com", fontSize = 14.sp)
-                }
-            }
-        }
-    }
-}
+//@Composable
+//fun SettingsSection(title: String, items: List<Pair<String, ImageVector>>) {
+//    Card(
+//
+//        modifier = Modifier
+//            .fillMaxWidth(),
+//        shape = RoundedCornerShape(8.dp),
+//    ) {
+//        Column(modifier = Modifier.padding(16.dp)) {
+//            Text(text = title, fontSize = 18.sp, fontWeight = FontWeight.Bold)
+//            Spacer(modifier = Modifier.height(16.dp))
+//            items.forEach { item ->
+//                Row(
+//                    modifier = Modifier
+//                        .fillMaxWidth()
+//                        .padding(vertical = 8.dp),
+//                    verticalAlignment = Alignment.CenterVertically
+//                ) {
+//                    Icon(imageVector = item.second, contentDescription = null, tint = Color.Gray)
+//                    Spacer(modifier = Modifier.width(16.dp))
+//                    Text(text = item.first)
+//                    Spacer(modifier = Modifier.weight(1f))
+//                    Icon(imageVector = Icons.Default.AccountCircle, contentDescription = null, tint = Color.Gray)
+//                }
+//            }
+//        }
+//    }
+//}
+//
+//@Composable
+//fun ProfileHeader() {
+//    Card(
+//        modifier = Modifier
+//            .fillMaxWidth()
+//            .padding(16.dp),
+//        shape = RoundedCornerShape(16.dp)
+//    ) {
+//        Column(
+//            modifier = Modifier
+//                .fillMaxWidth()
+//                .padding(16.dp)
+//        ) {
+//            Row(
+//                verticalAlignment = Alignment.CenterVertically,
+//                modifier = Modifier.fillMaxWidth()
+//            ) {
+//                Image(
+//                    painter = painterResource(id = R.drawable.notification ),
+//                    contentDescription = "Profile Image",
+//                    modifier = Modifier.size(64.dp)
+//                )
+//                Spacer(modifier = Modifier.width(16.dp))
+//                Column {
+//                    Text("User  Name", fontWeight = FontWeight.Bold, fontSize = 20.sp)
+//                    Text("user@example.com", fontSize = 14.sp)
+//                }
+//            }
+//        }
+//    }
+//}
 
 //@Composable
 //fun ProfileContent() {
@@ -239,5 +222,5 @@ fun ProfileHeader() {
 fun PreviewProfileScreen(){
     val navController = rememberNavController()
     val idProfile = null
-    ProfileScreen(navController)
+//    ProfileScreen(navController, authViewModel = "")
 }

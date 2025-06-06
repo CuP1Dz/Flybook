@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "848912970904",
+    "project_id": "flybook-2279f",
+    "storage_bucket": "flybook-2279f.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:848912970904:android:a088b06982ad5cbd094ced",
+        "android_client_info": {
+          "package_name": "com.example.flybook"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBIpc3NVMzUrXQimZ8dSAOkMtbhw2CqPX8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
