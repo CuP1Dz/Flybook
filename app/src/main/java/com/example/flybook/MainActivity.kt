@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.flybook.presentation.navigation.NavigationFlybook
 import com.example.flybook.ui.theme.FlybookTheme
+import com.example.flybook.viewmodel.AuthViewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,7 +21,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             FlybookTheme {
-                NavigationFlybook()
+                NavigationFlybook(authViewModel = AuthViewModel())
             }
         }
     }
